@@ -13,9 +13,15 @@
 
                 function onWindowResize() {
                     var footerElement = angular.element($document[0].getElementById(scope.footerElementId));
-                    var footerElementHeight = footerElement[0].offsetHeight
-                                                + getTopMarginAndBorderHeight(footerElement)
-                                                + getBottomMarginAndBorderHeight(footerElement);
+                    var footerElementHeight;
+
+                    if (footerElement.length === 1) {
+                        footerElementHeight = footerElement[0].offsetHeight
+                              + getTopMarginAndBorderHeight(footerElement)
+                              + getBottomMarginAndBorderHeight(footerElement);
+                    } else {
+                        footerElementHeight = 0;
+                    }
 
                     var elementOffsetTop = element[0].offsetTop;
                     var elementBottomMarginAndBorderHeight = getBottomMarginAndBorderHeight(element);
