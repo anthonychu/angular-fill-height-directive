@@ -1,16 +1,41 @@
 ﻿(function (fillHeightModule) {
 
-    fillHeightModule.directive('fillHeight', ['$window', '$document', function ($window, $document) {
+    fillHeightModule.directive('fillHeight', ['$window', '$document', '$timeout', function ($window, $document, $timeout) {
         return {
             restrict: 'A',
             scope: {
                 footerElementId: '@',
-                additionalPadding: '@'
+                additionalPadding: '@',
+                debounceWait: '@'
             },
             link: function (scope, element, attrs) {
-                angular.element($window).on('resize', onWindowResize);
+                if (scope.debounceWait === 0) {
+                    angular.element($window).on('resize', windowResize);
+                } else {
+                    // allow debounce wait time to be passed in.
+                    // if not passed in, default to a reasonable 250ms
+                    angular.element($window).on('resize', debounce(onWindowResize, scope.debounceWait || 250));
+                }
+                
                 onWindowResize();
-
+                
+                // returns a fn that will trigger 'time' amount after it stops getting called.
+                function debounce(fn, time) {
+                    var timeout;
+                    // every time this returned fn is called, it clears and re-sets the timeout
+                    return function() {
+                        var context = this;
+                        // set args so we can access it inside of inner function
+                        var args = arguments;
+                        var later = function() {
+                            timeout = null;
+                            fn.apply(context, args);
+                        };
+                        $timeout.cancel(timeout);
+                        timeout = $timeout(later, time);
+                    };
+                }
+                
                 function onWindowResize() {
                     var footerElement = angular.element($document[0].getElementById(scope.footerElementId));
                     var footerElementHeight;
