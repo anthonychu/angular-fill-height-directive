@@ -1,0 +1,13 @@
+{
+	"name": "angular-fill-height-directive"
+	, "version": "0.0.1"
+	, "description": "Angular directive to change the height of a div to fill the available space in the window."
+	, "repository" : { 
+		"type" : "git"
+		, "url" : "https://github.com/anthonychu/angular-fill-height-directive.git"
+	}
+	, "main": "src/fill-height.js"
+	, "devDependencies" : {
+		"angular": ">=1.0.0"
+	}
+}
