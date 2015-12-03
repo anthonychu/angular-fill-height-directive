@@ -17,7 +17,7 @@
                     angular.element($window).on('resize', debounce(onWindowResize, scope.debounceWait || 250));
                 }
                 
-				angular.element($window).on('ready', onWindowResize);
+				angular.element($window).on('load', onWindowResize);
 				                
                 // returns a fn that will trigger 'time' amount after it stops getting called.
                 function debounce(fn, time) {
