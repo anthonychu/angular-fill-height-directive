@@ -17,8 +17,8 @@
                     angular.element($window).on('resize', debounce(onWindowResize, scope.debounceWait || 250));
                 }
                 
-                onWindowResize();
-                
+				angular.element($window).on('load', onWindowResize);
+				                
                 // returns a fn that will trigger 'time' amount after it stops getting called.
                 function debounce(fn, time) {
                     var timeout;
@@ -59,7 +59,7 @@
                                         - footerElementHeight
                                         - additionalPadding;
 
-                    console.log(elementHeight);
+                    //console.info(elementHeight);
                     element.css('height', elementHeight + 'px');
                 }
 
