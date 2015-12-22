@@ -58,8 +58,6 @@
                                         - elementBottomMarginAndBorderHeight
                                         - footerElementHeight
                                         - additionalPadding;
-
-                    console.log(elementHeight);
                     element.css('height', elementHeight + 'px');
                 }
 
