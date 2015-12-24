@@ -10,14 +10,15 @@
             },
             link: function (scope, element, attrs) {
                 if (scope.debounceWait === 0) {
-                    angular.element($window).on('resize', windowResize);
+                    angular.element($window).on('resize', onWindowResize);
                 } else {
                     // allow debounce wait time to be passed in.
                     // if not passed in, default to a reasonable 250ms
                     angular.element($window).on('resize', debounce(onWindowResize, scope.debounceWait || 250));
                 }
                 
-				angular.element($window).on('load', onWindowResize);
+				//call once the DOM is ready
+				$timeout(onWindowResize);
 				                
                 // returns a fn that will trigger 'time' amount after it stops getting called.
                 function debounce(fn, time) {
